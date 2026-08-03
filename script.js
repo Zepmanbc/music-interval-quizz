@@ -1,28 +1,43 @@
 import { PIANO_SAMPLES } from "./const.js";
+
+const INCREMENT = 0.5;
+
 const piano = new Tone.Sampler({
   urls: PIANO_SAMPLES,
   release: 1,
   baseUrl: "./sounds/",
 }).toDestination();
 
-document.getElementById("note").onclick = async () => {
+function playNotes(notes) {
   Tone.loaded().then(() => {
     const now = Tone.now();
-    piano.triggerAttackRelease("C4", "4n", now);
+    let delta = 0;
+    for (const note of notes) {
+      piano.triggerAttackRelease(note, "4n", now + delta);
+      delta += INCREMENT;
+    }
+  });
+}
+
+function playChord(notes) {
+  Tone.loaded().then(() => {
+    piano.triggerAttackRelease(notes, 4);
+  });
+}
+
+document.getElementById("note").onclick = async () => {
+  Tone.loaded().then(() => {
+    playNotes(["C4"]);
   });
 };
 
 document.getElementById("accord").onclick = async () => {
-  Tone.loaded().then(() => {
-    piano.triggerAttackRelease(["C4", "E4", "G4"], 4);
-  });
+  playChord(["C4", "E4", "G4"]);
 };
 
 document.getElementById("arpege").onclick = async () => {
   Tone.loaded().then(() => {
     const now = Tone.now();
-    piano.triggerAttackRelease("C4", "4n", now);
-    piano.triggerAttackRelease("E4", "4n", now + 0.5);
-    piano.triggerAttackRelease("G4", "4n", now + 1);
+    playNotes(["C4", "E4", "G4"]);
   });
 };
