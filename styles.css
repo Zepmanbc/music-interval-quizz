@@ -1,13 +1,65 @@
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+  font-family: sans-serif;
+  padding: 1rem;
   background: #111;
-  color: white;
-  margin: 0;
+  color: #eee;
 }
 
 button {
   margin: 5px;
   padding: 7px;
   font-size: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.actions button {
+  flex: 1;
+  font-size: 1.1rem;
+  background: #2196f3;
+  color: #fff;
+}
+
+.section {
+  margin-bottom: 1.5rem;
+}
+
+.group-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.switch-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.switch-group button {
+  flex: 1;
+  background: #333;
+  color: #eee;
+  font-weight: 600;
+}
+
+.switch-group button.active {
+  background: #4caf50;
+  color: #000;
+}
+
+#exercise-type {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
 }
