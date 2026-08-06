@@ -19,20 +19,27 @@ function runExercise() {
   reset();
   const config = getExerciseConfig();
   console.log(config);
-  let exercice = setupIntervalQuizz(config["exerciseOptions"]);
-  cachedNotesToPlayFunction = () => {
-    playNotes(exercice.notesToPlay);
-  };
-  startStopBtn.addEventListener("click", cachedNotesToPlayFunction);
+  if (config.exerciseType == "interval") {
+    displayZone.classList.remove("hidden");
+    let exercice = setupIntervalQuizz(config["exerciseOptions"]);
+    cachedNotesToPlayFunction = () => {
+      playNotes(exercice.notesToPlay);
+    };
+    startStopBtn.addEventListener("click", cachedNotesToPlayFunction);
+    startingNoteText.textContent = exercice.startingNote;
+    responseArea.appendChild(exercice.interface());
+  }
 }
 
 // Interface
 const INTERVALS_KEYS = Object.keys(INTERVALS);
 const exerciseOptions = document.getElementById("exercise-options");
 const startStopBtn = document.getElementById("start-stop");
-const startinNote = document.getElementById("starting-note");
+const startingNoteText = document.getElementById("starting-note");
 const validateBtn = document.getElementById("validate");
 const nextQuestionBtn = document.getElementById("nextQuestion");
+const responseArea = document.getElementById("response-area");
+const displayZone = document.getElementById("display-zone");
 let cachedNotesToPlayFunction;
 
 validateBtn.addEventListener("click", runExercise);
@@ -61,6 +68,7 @@ function renderOptions(type) {
 
   // default active first
   exerciseOptions.querySelector("button")?.classList.add("active");
+  runExercise();
 }
 
 function setupSwitch(groupId) {
@@ -93,6 +101,7 @@ document.querySelectorAll(".type-btn").forEach((btn) => {
       .querySelectorAll(".type-btn")
       .forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
+    responseArea.textContent = "";
 
     renderOptions(btn.dataset.type);
   });
@@ -100,7 +109,9 @@ document.querySelectorAll(".type-btn").forEach((btn) => {
 
 // initializaton
 function reset() {
+  displayZone.classList.add("hidden");
   startStopBtn.removeEventListener("click", cachedNotesToPlayFunction);
+  responseArea.textContent = "";
 }
 
 setupSwitch("exercise-type");

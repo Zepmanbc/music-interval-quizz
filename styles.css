@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  padding: 1rem;
+  padding: 0.5rem;
   background: #111;
   color: #eee;
 }
@@ -17,6 +17,9 @@ label {
   font-weight: bold;
 }
 
+.hidden {
+  display: none;
+}
 .actions {
   display: flex;
   gap: 1rem;
@@ -30,7 +33,7 @@ label {
 }
 
 .section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .group-label {
@@ -57,9 +60,76 @@ label {
   color: #000;
 }
 
+.notes-grid {
+  max-width: 98%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.notes-grid button {
+  width: 100%;
+}
+
+.intervales-grid {
+  max-width: 98%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.intervales-grid button {
+  width: 100%;
+}
+
+.alterations-grid {
+  max-width: 98%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.alterations-grid button {
+  width: 100%;
+}
+
+.response-label {
+  margin-bottom: 0.5em;
+}
+
+.result {
+  text-align: center;
+}
+.result p {
+  margin: 0.5rem;
+}
+
 #exercise-type {
   display: flex;
   justify-content: center;
   gap: 8px;
   margin-bottom: 12px;
+}
+
+#btn-validate,
+#btn-nextQuestion {
+  max-width: 98%;
+  display: grid;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+#btn-validate button {
+  color: #eee;
+  background: #2196f3;
+  font-weight: bold;
+}
+
+#btn-nextQuestion button {
+  background: #4caf50;
+  color: #000;
+  font-weight: bold;
 }
