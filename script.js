@@ -1,7 +1,7 @@
-import { PIANO_SAMPLES } from "./const.js";
+import { playNotes, playChord } from "./piano.js";
+import { INTERVALS, setupIntervalQuizz } from "./interval.js";
 
-const INCREMENT = 0.5;
-const INTERVALS_OPTIONS = ["Ascendant", "Descandant"];
+const INTERVALS_OPTIONS = ["Ascendant", "Descendant"];
 const CHORDS_OPTIONS = ["3 sons", "4 sons"];
 const MODES_OPTIONS = ["Ascendant", "Descandant"];
 
@@ -15,11 +15,15 @@ function getExerciseConfig() {
   console.log("exerciseOptions : " + exerciseOptions.join(", "));
   return { exerciseType, exerciseOptions };
 }
-
-function playChord(notes) {
-  Tone.loaded().then(() => {
-    piano.triggerAttackRelease(notes, 4);
-  });
+function runExercise() {
+  reset();
+  const config = getExerciseConfig();
+  console.log(config);
+  let exercice = setupIntervalQuizz(config["exerciseOptions"]);
+  cachedNotesToPlayFunction = () => {
+    playNotes(exercice.notesToPlay);
+  };
+  startStopBtn.addEventListener("click", cachedNotesToPlayFunction);
 }
 
 // Interface
@@ -27,6 +31,11 @@ const INTERVALS_KEYS = Object.keys(INTERVALS);
 const exerciseOptions = document.getElementById("exercise-options");
 const startStopBtn = document.getElementById("start-stop");
 const startinNote = document.getElementById("starting-note");
+const validateBtn = document.getElementById("validate");
+const nextQuestionBtn = document.getElementById("nextQuestion");
+let cachedNotesToPlayFunction;
+
+validateBtn.addEventListener("click", runExercise);
 
 let isPlaying = false;
 
@@ -52,23 +61,6 @@ function renderOptions(type) {
 
   // default active first
   exerciseOptions.querySelector("button")?.classList.add("active");
-}
-
-function startSound() {
-  isPlaying = true;
-  startStopBtn.textContent = "🎵 Lecture";
-  startStopBtn.style.background = "#696969";
-
-  // runLoop();
-}
-
-function stopSound() {
-  isPlaying = false;
-  startStopBtn.textContent = "▶ Démarrer";
-  startStopBtn.style.background = "#2196f3";
-
-  // clearInterval(loopId);
-  // loopId = null;
 }
 
 function setupSwitch(groupId) {
@@ -107,9 +99,11 @@ document.querySelectorAll(".type-btn").forEach((btn) => {
 });
 
 // initializaton
-startStopBtn.addEventListener("click", () => {
-  startSound();
-});
+function reset() {
+  startStopBtn.removeEventListener("click", cachedNotesToPlayFunction);
+}
 
 setupSwitch("exercise-type");
 renderOptions("interval");
+
+runExercise();
