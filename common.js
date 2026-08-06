@@ -61,6 +61,7 @@ export const STARTING_NOTES = [
   "Gb",
   "G#",
 ];
+export const ALTERATIONS_NAMES = ["bb", "b", "#", "##"];
 
 export function getRandomNote() {
   const index = Math.floor(Math.random() * STARTING_NOTES.length);
