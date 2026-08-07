@@ -184,20 +184,6 @@ function intervalsBtns() {
   Object.keys(INTERVALS).forEach((interval) => {
     const btn = document.createElement("button");
     btn.innerText = interval;
-
-    // btn.onclick = () => {
-    //   // ✅ on stocke la réponse
-    //   selectedNote = note;
-
-    //   console.log("Note sélectionnée :", selectedNote);
-
-    //   // ✅ reset visuel (une seule sélection)
-    //   [...intervalsDiv.querySelectorAll("button")].forEach((b) =>
-    //     b.classList.remove("selected"),
-    //   );
-
-    //   btn.classList.add("selected");
-    // };
     intervalsDiv.appendChild(btn);
   });
   result.appendChild(intervalsDiv);
@@ -218,20 +204,6 @@ function notessBtns() {
   NOTES_NAMES.forEach((note) => {
     const btn = document.createElement("button");
     btn.innerText = note;
-
-    // btn.onclick = () => {
-    //   // ✅ on stocke la réponse
-    //   selectedNote = note;
-
-    //   console.log("Note sélectionnée :", selectedNote);
-
-    //   // ✅ reset visuel (une seule sélection)
-    //   [...notesDiv.querySelectorAll("button")].forEach((b) =>
-    //     b.classList.remove("selected"),
-    //   );
-
-    //   btn.classList.add("selected");
-    // };
     notesDiv.appendChild(btn);
   });
 
@@ -241,31 +213,12 @@ function notessBtns() {
 
 function alterationBtns() {
   const result = document.createElement("div");
-  // const title = document.createElement("div");
-  // title.classList.add("response-label");
-  // title.textContent = "Altération";
-  // result.appendChild(title);
-
   const alterationsDiv = document.createElement("div");
   alterationsDiv.classList.add("alterations-grid");
   alterationsDiv.classList.add("switch-unselect-btns");
   ALTERATIONS_NAMES.forEach((note) => {
     const btn = document.createElement("button");
     btn.innerText = note;
-
-    // btn.onclick = () => {
-    //   // ✅ on stocke la réponse
-    //   selectedNote = note;
-
-    //   console.log("Note sélectionnée :", selectedNote);
-
-    //   // ✅ reset visuel (une seule sélection)
-    //   [...alterationsDiv.querySelectorAll("button")].forEach((b) =>
-    //     b.classList.remove("selected"),
-    //   );
-
-    //   btn.classList.add("selected");
-    // };
     alterationsDiv.appendChild(btn);
   });
   result.appendChild(alterationsDiv);
