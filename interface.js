@@ -192,6 +192,7 @@ function runExercise() {
     startingNoteText.textContent = exercice.startingNote;
     responseArea.appendChild(exercice.interface());
     exerciceCheckResponse = exercice.checkResponse;
+    settingsArea.appendChild(exercice.settings);
 
     setupButtonsBehevior();
   }
@@ -201,7 +202,8 @@ function reset() {
   validateBtn.classList.remove("hidden");
   displayZone.classList.add("hidden");
   playMusicBtn.removeEventListener("click", cachedNotesToPlayFunction);
-  responseArea.textContent = "";
+  responseArea.innerHTML = "";
+  settingsArea.innerHTML = "";
 }
 
 export function checkAnimation(result) {
