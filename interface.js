@@ -110,19 +110,21 @@ function setupButtonsBehevior() {
 }
 
 // Settings Modal
-settingsBtn.addEventListener("click", () => {
-  modalSettings.classList.remove("hidden");
-});
+function setupModalSettings() {
+  settingsBtn.addEventListener("click", () => {
+    modalSettings.classList.remove("hidden");
+  });
 
-document.getElementById("closeSettings").addEventListener("click", () => {
-  modalSettings.classList.add("hidden");
-});
-
-modalSettings.addEventListener("click", (event) => {
-  if (event.target === modalSettings) {
+  document.getElementById("closeSettings").addEventListener("click", () => {
     modalSettings.classList.add("hidden");
-  }
-});
+  });
+
+  modalSettings.addEventListener("click", (event) => {
+    if (event.target === modalSettings) {
+      modalSettings.classList.add("hidden");
+    }
+  });
+}
 
 // Logic
 export function initialSetup() {
@@ -136,6 +138,7 @@ export function initialSetup() {
   validateBtn.addEventListener("click", () => {
     exerciceCheckResponse();
   });
+  setupModalSettings();
   renderOptions("interval");
 }
 
