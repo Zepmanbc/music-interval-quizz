@@ -12,6 +12,7 @@ const displayZone = document.getElementById("display-zone");
 const correctScoreDisplay = document.getElementById("correct");
 const wrongScoreDisplay = document.getElementById("wrong");
 let cachedNotesToPlayFunction;
+let exerciceCheckResponse;
 let correctScore = 0;
 let wrongScore = 0;
 
@@ -115,6 +116,9 @@ export function initialSetup() {
   });
 
   nextQuestionBtn.addEventListener("click", runExercise);
+  validateBtn.addEventListener("click", () => {
+    exerciceCheckResponse();
+  });
   renderOptions("interval");
 }
 
@@ -166,7 +170,9 @@ function runExercise() {
     playMusicBtn.addEventListener("click", cachedNotesToPlayFunction);
     startingNoteText.textContent = exercice.startingNote;
     responseArea.appendChild(exercice.interface());
-    validateBtn.addEventListener("click", exercice.checkResponse);
+    exerciceCheckResponse = exercice.checkResponse;
+    // validateBtn.addEventListener("click", exercice.checkResponse);
+
     setupButtonsBehevior();
   }
 }
