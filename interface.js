@@ -4,7 +4,8 @@ import { playNotes, playChord } from "./piano.js";
 const exerciseType = document.querySelector("#exercise-type");
 const exerciseOptions = document.getElementById("exercise-options");
 const settingsBtn = document.getElementById("settings-btn");
-const modalSettings = document.getElementById("settingsModal");
+const modalSettings = document.getElementById("settings-modal");
+const settingsArea = document.getElementById("settings-area");
 const playMusicBtn = document.getElementById("play-music-btn");
 const startingNoteText = document.getElementById("starting-note");
 const validateBtn = document.getElementById("validate");
@@ -191,6 +192,7 @@ function runExercise() {
     startingNoteText.textContent = exercice.startingNote;
     responseArea.appendChild(exercice.interface());
     exerciceCheckResponse = exercice.checkResponse;
+
     setupButtonsBehevior();
   }
 }
