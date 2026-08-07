@@ -9,7 +9,11 @@ const validateBtn = document.getElementById("validate");
 const nextQuestionBtn = document.getElementById("nextQuestion");
 const responseArea = document.getElementById("response-area");
 const displayZone = document.getElementById("display-zone");
+const correctScoreDisplay = document.getElementById("correct");
+const wrongScoreDisplay = document.getElementById("wrong");
 let cachedNotesToPlayFunction;
+let correctScore = 0;
+let wrongScore = 0;
 
 const CHORDS_OPTIONS = ["3 sons", "4 sons"];
 const MODES_OPTIONS = ["Ascendant", "Descendant"];
@@ -178,7 +182,12 @@ export function checkAnimation(result) {
   showFeedback(result);
   if (result) {
     validateBtn.classList.add("hidden");
+    correctScore++;
+  } else {
+    wrongScore++;
   }
+  correctScoreDisplay.textContent = correctScore;
+  wrongScoreDisplay.textContent = wrongScore;
 }
 
 function showFeedback(success) {
