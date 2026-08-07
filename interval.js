@@ -41,7 +41,10 @@ const INTERVAL_NOTE_NAME = {
   P8: 7,
 };
 
+let INTERVALS_SETTINGS = Object.keys(INTERVALS);
+
 export function setupIntervalQuizz(options) {
+  let settings = getIntervalSettings();
   let startingNote = getRandomNote();
   let interval = getRandomInterval();
   let direction = getRandomOption(options);
@@ -70,7 +73,7 @@ export function setupIntervalQuizz(options) {
     checkResponse: () => {
       checkResponse(interval, secondNote);
     },
-    settings: getIntervalSettings(),
+    settings: settings,
   };
 }
 
@@ -93,9 +96,8 @@ function checkResponse(interval, secondNote) {
 }
 
 function getRandomInterval() {
-  const intervals = Object.keys(INTERVALS);
-  const index = Math.floor(Math.random() * intervals.length);
-  return intervals[index];
+  const index = Math.floor(Math.random() * INTERVALS_SETTINGS.length);
+  return INTERVALS_SETTINGS[index];
 }
 
 function getSecondNote(startingNote, interval, direction) {
@@ -181,12 +183,8 @@ function intervalsBtns() {
   const intervalsDiv = document.createElement("div");
   intervalsDiv.classList.add("intervales-grid");
   intervalsDiv.classList.add("switch-unselect-btns");
-  // intervalsDiv.classList.add("response-button");
-  Object.keys(INTERVALS).forEach((interval) => {
-    const btn = document.createElement("button");
-    btn.innerText = interval;
-    intervalsDiv.appendChild(btn);
-  });
+  intervalsDiv.setAttribute("id", "intervales-responses");
+  fillIntervalsGrid(intervalsDiv);
   result.appendChild(intervalsDiv);
   return result;
 }
@@ -236,8 +234,31 @@ function getIntervalSettings() {
   Object.keys(INTERVALS).forEach((interval) => {
     const btn = document.createElement("button");
     btn.innerText = interval;
+    if (INTERVALS_SETTINGS.includes(interval)) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
     btn.classList.add("active");
     intervalsDiv.appendChild(btn);
+    // INTERVALS_SETTINGS.push(interval);
+    btn.addEventListener("click", () => {
+      const intervalsResponseDiv = document.querySelector(
+        "#intervales-responses",
+      );
+      const value = btn.textContent;
+      const index = INTERVALS_SETTINGS.indexOf(value);
+      if (index === -1) {
+        INTERVALS_SETTINGS.push(value);
+      } else {
+        INTERVALS_SETTINGS.splice(index, 1);
+      }
+      INTERVALS_SETTINGS.sort(
+        (a, b) =>
+          Object.keys(INTERVALS).indexOf(a) - Object.keys(INTERVALS).indexOf(b),
+      );
+      fillIntervalsGrid(intervalsResponseDiv);
+    });
   });
 
   const notesDiv = document.createElement("div");
@@ -261,7 +282,17 @@ function getIntervalSettings() {
   });
 
   settingsDiv.appendChild(intervalsDiv);
-  settingsDiv.appendChild(notesDiv);
-  settingsDiv.appendChild(alterationsDiv);
+  // settingsDiv.appendChild(notesDiv);
+  // settingsDiv.appendChild(alterationsDiv);
   return settingsDiv;
+}
+
+function fillIntervalsGrid(intervalsDiv) {
+  // const intervalsDiv = document.querySelector(".intervales-grid");
+  intervalsDiv.innerHTML = "";
+  INTERVALS_SETTINGS.forEach((interval) => {
+    const btn = document.createElement("button");
+    btn.innerText = interval;
+    intervalsDiv.appendChild(btn);
+  });
 }
