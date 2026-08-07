@@ -102,6 +102,7 @@ function setupButtonsBehevior() {
   });
 }
 
+// Logic
 export function initialSetup() {
   // Exercise Type Buttons
   btnGroupSetupSwitch(exerciseType, (btn) => {
@@ -167,7 +168,28 @@ function runExercise() {
 }
 
 function reset() {
+  validateBtn.classList.remove("hidden");
   displayZone.classList.add("hidden");
   playMusicBtn.removeEventListener("click", cachedNotesToPlayFunction);
   responseArea.textContent = "";
+}
+
+export function checkAnimation(result) {
+  showFeedback(result);
+  if (result) {
+    validateBtn.classList.add("hidden");
+  }
+}
+
+function showFeedback(success) {
+  const feedback = document.createElement("div");
+
+  feedback.className = "result-feedback";
+  feedback.textContent = success ? "✅" : "❌";
+
+  document.body.appendChild(feedback);
+
+  setTimeout(() => {
+    feedback.remove();
+  }, 1000);
 }

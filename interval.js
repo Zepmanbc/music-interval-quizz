@@ -5,7 +5,7 @@ import {
   getRandomNote,
   getRandomOption,
 } from "./common.js";
-
+import { checkAnimation } from "./interface.js";
 import { convertPlayingNote } from "./piano.js";
 
 export const INTERVALS_OPTIONS = ["Ascendant", "Descendant"];
@@ -67,7 +67,28 @@ export function setupIntervalQuizz(options) {
     secondNote: secondNote,
     notesToPlay: [playingNote1, playingNote2],
     interface: interfaceResponseBtns,
+    checkResponse: () => {
+      checkResponse(interval, secondNote);
+    },
   };
+}
+
+function checkResponse(interval, secondNote) {
+  console.log("Response:");
+  console.log(interval, secondNote);
+  const intervalBtn = document.querySelector(".intervales-grid button.active");
+  const intervalResponse = intervalBtn ? intervalBtn.textContent : "";
+  const noteBtn = document.querySelector(".notes-grid button.active");
+  const noteResponse = noteBtn ? noteBtn.textContent : "";
+  const alterationBtn = document.querySelector(
+    ".alterations-grid button.active",
+  );
+  const alterationResponse = alterationBtn ? alterationBtn.textContent : "";
+
+  const result =
+    intervalResponse === interval &&
+    noteResponse + alterationResponse === secondNote;
+  checkAnimation(result);
 }
 
 function getRandomInterval() {
