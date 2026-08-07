@@ -42,20 +42,20 @@ label {
   font-weight: bold;
 }
 
-.switch-group {
+.options-group {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
 
-.switch-group button {
+.options-group button {
   flex: 1;
   background: #333;
   color: #eee;
   font-weight: 600;
 }
 
-.switch-group button.active {
+.options-group button.active {
   background: #4caf50;
   color: #000;
 }
