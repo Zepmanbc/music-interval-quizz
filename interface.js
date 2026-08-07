@@ -171,8 +171,6 @@ function runExercise() {
     startingNoteText.textContent = exercice.startingNote;
     responseArea.appendChild(exercice.interface());
     exerciceCheckResponse = exercice.checkResponse;
-    // validateBtn.addEventListener("click", exercice.checkResponse);
-
     setupButtonsBehevior();
   }
 }
