@@ -113,15 +113,10 @@ function setupOptionsBtns(type) {
 
   list.forEach((item) => {
     const btn = document.createElement("button");
-    // btn.classList.add("option-btn");
-    // btn.classList.add("switch-btns");
+    btn.classList.add("option-btn");
     btn.dataset.value = item;
     btn.textContent = item;
     exerciseOptions.appendChild(btn);
-
-    // btn.addEventListener("click", () => {
-    //   btn.classList.toggle("active");
-    // });
   });
 
   // default active first
