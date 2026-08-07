@@ -70,6 +70,7 @@ export function setupIntervalQuizz(options) {
     checkResponse: () => {
       checkResponse(interval, secondNote);
     },
+    settings: getIntervalSettings(),
   };
 }
 
@@ -223,4 +224,44 @@ function alterationBtns() {
   });
   result.appendChild(alterationsDiv);
   return result;
+}
+
+function getIntervalSettings() {
+  let settingsDiv = document.createElement("div");
+
+  const intervalsDiv = document.createElement("div");
+  intervalsDiv.classList.add("intervales-grid");
+  intervalsDiv.classList.add("toggle-btns");
+  // intervalsDiv.classList.add("response-button");
+  Object.keys(INTERVALS).forEach((interval) => {
+    const btn = document.createElement("button");
+    btn.innerText = interval;
+    btn.classList.add("active");
+    intervalsDiv.appendChild(btn);
+  });
+
+  const notesDiv = document.createElement("div");
+  notesDiv.classList.add("notes-grid");
+  notesDiv.classList.add("toggle-btns");
+  NOTES_NAMES.forEach((note) => {
+    const btn = document.createElement("button");
+    btn.innerText = note;
+    btn.classList.add("active");
+    notesDiv.appendChild(btn);
+  });
+
+  const alterationsDiv = document.createElement("div");
+  alterationsDiv.classList.add("alterations-grid");
+  alterationsDiv.classList.add("switch-unselect-btns");
+  ALTERATIONS_NAMES.slice(1, -1).forEach((note) => {
+    const btn = document.createElement("button");
+    btn.innerText = note;
+    btn.classList.add("active");
+    alterationsDiv.appendChild(btn);
+  });
+
+  settingsDiv.appendChild(intervalsDiv);
+  settingsDiv.appendChild(notesDiv);
+  settingsDiv.appendChild(alterationsDiv);
+  return settingsDiv;
 }
