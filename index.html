@@ -35,6 +35,7 @@
       <!-- ACTIONS -->
       <div id="display-zone">
         <div class="section actions">
+          <button id="settings-btn">⚙️</button>
           <button id="play-music-btn">▶ Jouer</button>
         </div>
 
@@ -53,6 +54,14 @@
 
       <div class="result">
         <p>✅ <span id="correct">0</span> | ❌ <span id="wrong">0</span></p>
+      </div>
+    </div>
+
+    <div id="settingsModal" class="modal hidden">
+      <div class="modal-content">
+        <button id="closeSettings" class="close-btn">✕</button>
+        <h3>Paramètres</h3>
+        <div id="settings-area"></div>
       </div>
     </div>
 

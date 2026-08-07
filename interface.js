@@ -3,6 +3,8 @@ import { playNotes, playChord } from "./piano.js";
 
 const exerciseType = document.querySelector("#exercise-type");
 const exerciseOptions = document.getElementById("exercise-options");
+const settingsBtn = document.getElementById("settings-btn");
+const modalSettings = document.getElementById("settingsModal");
 const playMusicBtn = document.getElementById("play-music-btn");
 const startingNoteText = document.getElementById("starting-note");
 const validateBtn = document.getElementById("validate");
@@ -106,6 +108,21 @@ function setupButtonsBehevior() {
     btnGroupSetupToggleAlwaysOne(group);
   });
 }
+
+// Settings Modal
+settingsBtn.addEventListener("click", () => {
+  modalSettings.classList.remove("hidden");
+});
+
+document.getElementById("closeSettings").addEventListener("click", () => {
+  modalSettings.classList.add("hidden");
+});
+
+modalSettings.addEventListener("click", (event) => {
+  if (event.target === modalSettings) {
+    modalSettings.classList.add("hidden");
+  }
+});
 
 // Logic
 export function initialSetup() {
