@@ -1,12 +1,9 @@
-import { INTERVALS, setupIntervalQuizz } from "./interval.js";
+import { INTERVALS_OPTIONS, setupIntervalQuizz } from "./interval.js";
 import { playNotes, playChord } from "./piano.js";
 
 const exerciseType = document.querySelector("#exercise-type");
-
-const INTERVALS_KEYS = Object.keys(INTERVALS);
-
 const exerciseOptions = document.getElementById("exercise-options");
-const startStopBtn = document.getElementById("start-stop");
+const playMusicBtn = document.getElementById("play-music-btn");
 const startingNoteText = document.getElementById("starting-note");
 const validateBtn = document.getElementById("validate");
 const nextQuestionBtn = document.getElementById("nextQuestion");
@@ -14,17 +11,42 @@ const responseArea = document.getElementById("response-area");
 const displayZone = document.getElementById("display-zone");
 let cachedNotesToPlayFunction;
 
-const INTERVALS_OPTIONS = ["Ascendant", "Descendant"];
 const CHORDS_OPTIONS = ["3 sons", "4 sons"];
-const MODES_OPTIONS = ["Ascendant", "Descandant"];
+const MODES_OPTIONS = ["Ascendant", "Descendant"];
 
-export function btnGroupSetupSwitch(group, onClick) {
+// Buttons Behavior
+function btnGroupSetupSwitch(group, onClick = null) {
   const buttons = group.querySelectorAll("button");
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
       buttons.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
-      onClick(btn);
+      if (onClick) {
+        onClick(btn);
+      }
+    });
+  });
+}
+
+function btnGroupSetupSwitchUnselect(group, onClick = null) {
+  const buttons = group.querySelectorAll("button");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      // Si le bouton est déjà actif, on le désactive
+      if (btn.classList.contains("active")) {
+        btn.classList.remove("active");
+        if (onClick) {
+          onClick(btn);
+        }
+      } else {
+        // Sinon on désactive les autres et on active celui-ci
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        if (onClick) {
+          onClick(btn);
+        }
+      }
     });
   });
 }
@@ -39,11 +61,15 @@ function btnGroupSetupToggle(group) {
   });
 }
 
-export function setupButtonsBehevior() {
+function setupButtonsBehevior() {
   const switchBtns = document.querySelectorAll(".switch-btns");
+  const switchUnselectBtns = document.querySelectorAll(".switch-unselect-btns");
   const toggleBtns = document.querySelectorAll(".toggle-btns");
   switchBtns.forEach((group) => {
     btnGroupSetupSwitch(group);
+  });
+  switchUnselectBtns.forEach((group) => {
+    btnGroupSetupSwitchUnselect(group);
   });
   toggleBtns.forEach((group) => {
     btnGroupSetupToggle(group);
@@ -73,6 +99,11 @@ function getExerciseConfig() {
 }
 
 export function renderOptions(type) {
+  setupOptionsBtns(type);
+  runExercise();
+}
+
+function setupOptionsBtns(type) {
   exerciseOptions.innerHTML = "";
 
   let list = [];
@@ -96,8 +127,8 @@ export function renderOptions(type) {
   // default active first
   exerciseOptions.querySelector("button")?.classList.add("active");
 
-  setupButtonsBehevior();
   runExercise();
+  setupButtonsBehevior();
 }
 
 function runExercise() {
@@ -109,14 +140,16 @@ function runExercise() {
     cachedNotesToPlayFunction = () => {
       playNotes(exercice.notesToPlay);
     };
-    startStopBtn.addEventListener("click", cachedNotesToPlayFunction);
+    playMusicBtn.addEventListener("click", cachedNotesToPlayFunction);
     startingNoteText.textContent = exercice.startingNote;
     responseArea.appendChild(exercice.interface());
+    validateBtn.addEventListener("click", exercice.checkResponse);
+    setupButtonsBehevior();
   }
 }
 
 function reset() {
   displayZone.classList.add("hidden");
-  startStopBtn.removeEventListener("click", cachedNotesToPlayFunction);
+  playMusicBtn.removeEventListener("click", cachedNotesToPlayFunction);
   responseArea.textContent = "";
 }

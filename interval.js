@@ -8,6 +8,7 @@ import {
 
 import { convertPlayingNote } from "./piano.js";
 
+export const INTERVALS_OPTIONS = ["Ascendant", "Descendant"];
 export const INTERVALS = {
   P1: 0,
   m2: 1,
@@ -157,6 +158,7 @@ function intervalsBtns() {
 
   const intervalsDiv = document.createElement("div");
   intervalsDiv.classList.add("intervales-grid");
+  intervalsDiv.classList.add("switch-unselect-btns");
   // intervalsDiv.classList.add("response-button");
   Object.keys(INTERVALS).forEach((interval) => {
     const btn = document.createElement("button");
@@ -180,6 +182,7 @@ function intervalsBtns() {
   result.appendChild(intervalsDiv);
   return result;
 }
+
 function notessBtns() {
   const result = document.createElement("div");
   const title = document.createElement("div");
@@ -189,6 +192,7 @@ function notessBtns() {
 
   const notesDiv = document.createElement("div");
   notesDiv.classList.add("notes-grid");
+  notesDiv.classList.add("switch-unselect-btns");
   // notesDiv.classList.add("response-button");
   NOTES_NAMES.forEach((note) => {
     const btn = document.createElement("button");
@@ -213,15 +217,17 @@ function notessBtns() {
   result.appendChild(notesDiv);
   return result;
 }
+
 function alterationBtns() {
   const result = document.createElement("div");
-  const title = document.createElement("div");
-  title.classList.add("response-label");
-  title.textContent = "Altération";
-  result.appendChild(title);
+  // const title = document.createElement("div");
+  // title.classList.add("response-label");
+  // title.textContent = "Altération";
+  // result.appendChild(title);
 
   const alterationsDiv = document.createElement("div");
   alterationsDiv.classList.add("alterations-grid");
+  alterationsDiv.classList.add("switch-unselect-btns");
   ALTERATIONS_NAMES.forEach((note) => {
     const btn = document.createElement("button");
     btn.innerText = note;

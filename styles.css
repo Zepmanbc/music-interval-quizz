@@ -55,7 +55,7 @@ label {
   font-weight: 600;
 }
 
-.options-group button.active {
+button.active {
   background: #4caf50;
   color: #000;
 }
