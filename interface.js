@@ -61,10 +61,33 @@ function btnGroupSetupToggle(group) {
   });
 }
 
+function btnGroupSetupToggleAlwaysOne(group) {
+  const buttons = group.querySelectorAll("button");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      // Si le bouton est actif, on vérifie qu'il y en a d'autres
+      if (btn.classList.contains("active")) {
+        const activeButtons = group.querySelectorAll("button.active");
+
+        // On ne désactive que s'il reste au moins un autre bouton actif
+        if (activeButtons.length > 1) {
+          btn.classList.remove("active");
+        }
+      } else {
+        btn.classList.add("active");
+      }
+    });
+  });
+}
+
 function setupButtonsBehevior() {
   const switchBtns = document.querySelectorAll(".switch-btns");
   const switchUnselectBtns = document.querySelectorAll(".switch-unselect-btns");
   const toggleBtns = document.querySelectorAll(".toggle-btns");
+  const toggleBtnsAlwaysOne = document.querySelectorAll(
+    ".toggle-btns-always-one",
+  );
   switchBtns.forEach((group) => {
     btnGroupSetupSwitch(group);
   });
@@ -73,6 +96,9 @@ function setupButtonsBehevior() {
   });
   toggleBtns.forEach((group) => {
     btnGroupSetupToggle(group);
+  });
+  toggleBtnsAlwaysOne.forEach((group) => {
+    btnGroupSetupToggleAlwaysOne(group);
   });
 }
 
@@ -106,12 +132,12 @@ export function renderOptions(type) {
 function setupOptionsBtns(type) {
   exerciseOptions.innerHTML = "";
 
-  let list = [];
-  if (type === "interval") list = INTERVALS_OPTIONS;
-  if (type === "chords") list = CHORDS_OPTIONS;
-  if (type === "mode") list = MODES_OPTIONS;
+  let optionsList = [];
+  if (type === "interval") optionsList = INTERVALS_OPTIONS;
+  if (type === "chords") optionsList = CHORDS_OPTIONS;
+  if (type === "mode") optionsList = MODES_OPTIONS;
 
-  list.forEach((item) => {
+  optionsList.forEach((item) => {
     const btn = document.createElement("button");
     btn.classList.add("option-btn");
     btn.dataset.value = item;
@@ -121,9 +147,6 @@ function setupOptionsBtns(type) {
 
   // default active first
   exerciseOptions.querySelector("button")?.classList.add("active");
-
-  runExercise();
-  setupButtonsBehevior();
 }
 
 function runExercise() {
