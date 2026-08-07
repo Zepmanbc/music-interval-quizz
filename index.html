@@ -8,9 +8,53 @@
   </head>
 
   <body>
-    <p><button id="note">Jouer une note</button></p>
-    <p><button id="accord">Jouer un accord</button></p>
-    <p><button id="arpege">Jouer un argpège</button></p>
+    <div class="container">
+      <!-- Type d'exercice -->
+      <div class="section">
+        <!-- <label>Type d’exercice</label> -->
+        <div class="options-group" id="exercise-type">
+          <button class="type-btn active" data-type="interval">
+            Intervals
+          </button>
+          <button class="type-btn" data-type="chords">Accords</button>
+          <button class="type-btn" data-type="mode">Modes</button>
+        </div>
+      </div>
+
+      <!-- Options (intervals/accords/modes) -->
+      <div class="section">
+        <!-- <label>Options</label> -->
+        <div
+          class="toggle-btns-always-one options-group grid"
+          id="exercise-options"
+        >
+          <!-- boutons générés dynamiquement -->
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div id="display-zone">
+        <div class="section actions">
+          <button id="play-music-btn">▶ Jouer</button>
+        </div>
+
+        <h3>Note de départ : <span id="starting-note"></span></h3>
+
+        <div class="section" id="response-area"></div>
+
+        <br />
+        <div class="container" id="btn-validate">
+          <button id="validate">Valider</button>
+        </div>
+        <div class="container" id="btn-nextQuestion">
+          <button id="nextQuestion">Question suivante</button>
+        </div>
+      </div>
+
+      <div class="result">
+        <p>✅ <span id="correct">0</span> | ❌ <span id="wrong">0</span></p>
+      </div>
+    </div>
 
     <script src="Tone.js"></script>
     <script type="module" src="script.js"></script>

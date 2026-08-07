@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #111;
+  color: white;
+  margin: 0;
+}
+
+h3,
+h2 {
+  margin: 5px;
+}
+
+p {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+}
+
+button {
+  margin: 5px;
+  padding: 7px;
+  font-size: 16px;
+}
+
+.selected {
+  background: #4caf50;
+}
+
+.correct {
+  color: #4caf50;
+}
+
+.wrong {
+  color: #f44336;
+}
+
+.notes-grid {
+  max-width: 98%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.notes-grid button {
+  width: 100%;
+}

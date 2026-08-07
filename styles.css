@@ -1,13 +1,169 @@
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+  font-family: sans-serif;
+  padding: 0.5rem;
   background: #111;
-  color: white;
-  margin: 0;
+  color: #eee;
 }
 
 button {
   margin: 5px;
   padding: 7px;
   font-size: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.actions button {
+  flex: 1;
+  font-size: 1.1rem;
+  background: #2196f3;
+  color: #fff;
+}
+
+.section {
+  margin-bottom: 0.5rem;
+}
+
+.group-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.options-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.options-group button {
+  flex: 1;
+  background: #333;
+  color: #eee;
+  font-weight: 600;
+}
+
+button.active {
+  background: #4caf50;
+  color: #000;
+}
+
+.notes-grid {
+  max-width: 98%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.notes-grid button {
+  width: 100%;
+}
+
+.intervales-grid {
+  max-width: 98%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.intervales-grid button {
+  width: 100%;
+}
+
+.alterations-grid {
+  max-width: 98%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.alterations-grid button {
+  width: 100%;
+}
+
+.response-label {
+  margin-bottom: 0.5em;
+}
+
+.result {
+  text-align: center;
+}
+.result p {
+  margin: 0.5rem;
+}
+
+#exercise-type {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+#btn-validate,
+#btn-nextQuestion {
+  max-width: 98%;
+  display: grid;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+#btn-validate button {
+  color: #eee;
+  background: #2196f3;
+  font-weight: bold;
+}
+
+#btn-nextQuestion button {
+  background: #4caf50;
+  color: #000;
+  font-weight: bold;
+}
+
+/* ANIMATION */
+.result-feedback {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10rem;
+  opacity: 0;
+  animation: fadeInOut 1s ease-in-out;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
 }

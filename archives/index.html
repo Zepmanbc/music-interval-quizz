@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interval Quiz</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>
+        <button>⚙️</button> Note de départ :
+        <span id="question"><button>🎵</button></span>
+      </h2>
+
+      <p>Interval :</p>
+      <div id="intervals"></div>
+
+      <p>Notes :</p>
+      <div id="notes"></div>
+
+      <br />
+      <div class="container" id="btn-validate">
+        <button onclick="validate()">Valider</button>
+      </div>
+      <div class="container" id="btn-nextQuestion">
+        <button onclick="nextQuestion()">Question suivante</button>
+      </div>
+
+      <h3 id="result"></h3>
+
+      <p>Score :</p>
+      <p>✅ <span id="correct">0</span> | ❌ <span id="wrong">0</span></p>
+    </div>
+    <script src="./scripts.js"></script>
+  </body>
+</html>
