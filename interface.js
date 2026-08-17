@@ -3,6 +3,9 @@ import { playNotes, playChord } from "./piano.js";
 
 const exerciseType = document.querySelector("#exercise-type");
 const exerciseOptions = document.getElementById("exercise-options");
+const settingsBtn = document.getElementById("settings-btn");
+const modalSettings = document.getElementById("settings-modal");
+const settingsArea = document.getElementById("settings-area");
 const playMusicBtn = document.getElementById("play-music-btn");
 const startingNoteText = document.getElementById("starting-note");
 const validateBtn = document.getElementById("validate");
@@ -12,6 +15,7 @@ const displayZone = document.getElementById("display-zone");
 const correctScoreDisplay = document.getElementById("correct");
 const wrongScoreDisplay = document.getElementById("wrong");
 let cachedNotesToPlayFunction;
+let exerciceCheckResponse;
 let correctScore = 0;
 let wrongScore = 0;
 
@@ -106,6 +110,23 @@ function setupButtonsBehevior() {
   });
 }
 
+// Settings Modal
+function setupModalSettings() {
+  settingsBtn.addEventListener("click", () => {
+    modalSettings.classList.remove("hidden");
+  });
+
+  document.getElementById("closeSettings").addEventListener("click", () => {
+    modalSettings.classList.add("hidden");
+  });
+
+  modalSettings.addEventListener("click", (event) => {
+    if (event.target === modalSettings) {
+      modalSettings.classList.add("hidden");
+    }
+  });
+}
+
 // Logic
 export function initialSetup() {
   // Exercise Type Buttons
@@ -115,6 +136,10 @@ export function initialSetup() {
   });
 
   nextQuestionBtn.addEventListener("click", runExercise);
+  validateBtn.addEventListener("click", () => {
+    exerciceCheckResponse();
+  });
+  setupModalSettings();
   renderOptions("interval");
 }
 
@@ -166,7 +191,9 @@ function runExercise() {
     playMusicBtn.addEventListener("click", cachedNotesToPlayFunction);
     startingNoteText.textContent = exercice.startingNote;
     responseArea.appendChild(exercice.interface());
-    validateBtn.addEventListener("click", exercice.checkResponse);
+    exerciceCheckResponse = exercice.checkResponse;
+    settingsArea.appendChild(exercice.settings);
+
     setupButtonsBehevior();
   }
 }
@@ -175,7 +202,8 @@ function reset() {
   validateBtn.classList.remove("hidden");
   displayZone.classList.add("hidden");
   playMusicBtn.removeEventListener("click", cachedNotesToPlayFunction);
-  responseArea.textContent = "";
+  responseArea.innerHTML = "";
+  settingsArea.innerHTML = "";
 }
 
 export function checkAnimation(result) {

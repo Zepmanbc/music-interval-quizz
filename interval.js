@@ -41,7 +41,10 @@ const INTERVAL_NOTE_NAME = {
   P8: 7,
 };
 
+let INTERVALS_SETTINGS = Object.keys(INTERVALS);
+
 export function setupIntervalQuizz(options) {
+  let settings = getIntervalSettings();
   let startingNote = getRandomNote();
   let interval = getRandomInterval();
   let direction = getRandomOption(options);
@@ -70,6 +73,7 @@ export function setupIntervalQuizz(options) {
     checkResponse: () => {
       checkResponse(interval, secondNote);
     },
+    settings: settings,
   };
 }
 
@@ -92,9 +96,8 @@ function checkResponse(interval, secondNote) {
 }
 
 function getRandomInterval() {
-  const intervals = Object.keys(INTERVALS);
-  const index = Math.floor(Math.random() * intervals.length);
-  return intervals[index];
+  const index = Math.floor(Math.random() * INTERVALS_SETTINGS.length);
+  return INTERVALS_SETTINGS[index];
 }
 
 function getSecondNote(startingNote, interval, direction) {
@@ -180,26 +183,8 @@ function intervalsBtns() {
   const intervalsDiv = document.createElement("div");
   intervalsDiv.classList.add("intervales-grid");
   intervalsDiv.classList.add("switch-unselect-btns");
-  // intervalsDiv.classList.add("response-button");
-  Object.keys(INTERVALS).forEach((interval) => {
-    const btn = document.createElement("button");
-    btn.innerText = interval;
-
-    // btn.onclick = () => {
-    //   // ✅ on stocke la réponse
-    //   selectedNote = note;
-
-    //   console.log("Note sélectionnée :", selectedNote);
-
-    //   // ✅ reset visuel (une seule sélection)
-    //   [...intervalsDiv.querySelectorAll("button")].forEach((b) =>
-    //     b.classList.remove("selected"),
-    //   );
-
-    //   btn.classList.add("selected");
-    // };
-    intervalsDiv.appendChild(btn);
-  });
+  intervalsDiv.setAttribute("id", "intervales-responses");
+  fillIntervalsGrid(intervalsDiv);
   result.appendChild(intervalsDiv);
   return result;
 }
@@ -218,20 +203,6 @@ function notessBtns() {
   NOTES_NAMES.forEach((note) => {
     const btn = document.createElement("button");
     btn.innerText = note;
-
-    // btn.onclick = () => {
-    //   // ✅ on stocke la réponse
-    //   selectedNote = note;
-
-    //   console.log("Note sélectionnée :", selectedNote);
-
-    //   // ✅ reset visuel (une seule sélection)
-    //   [...notesDiv.querySelectorAll("button")].forEach((b) =>
-    //     b.classList.remove("selected"),
-    //   );
-
-    //   btn.classList.add("selected");
-    // };
     notesDiv.appendChild(btn);
   });
 
@@ -241,33 +212,87 @@ function notessBtns() {
 
 function alterationBtns() {
   const result = document.createElement("div");
-  // const title = document.createElement("div");
-  // title.classList.add("response-label");
-  // title.textContent = "Altération";
-  // result.appendChild(title);
-
   const alterationsDiv = document.createElement("div");
   alterationsDiv.classList.add("alterations-grid");
   alterationsDiv.classList.add("switch-unselect-btns");
   ALTERATIONS_NAMES.forEach((note) => {
     const btn = document.createElement("button");
     btn.innerText = note;
-
-    // btn.onclick = () => {
-    //   // ✅ on stocke la réponse
-    //   selectedNote = note;
-
-    //   console.log("Note sélectionnée :", selectedNote);
-
-    //   // ✅ reset visuel (une seule sélection)
-    //   [...alterationsDiv.querySelectorAll("button")].forEach((b) =>
-    //     b.classList.remove("selected"),
-    //   );
-
-    //   btn.classList.add("selected");
-    // };
     alterationsDiv.appendChild(btn);
   });
   result.appendChild(alterationsDiv);
   return result;
+}
+
+function getIntervalSettings() {
+  let settingsDiv = document.createElement("div");
+
+  const intervalsDiv = document.createElement("div");
+  intervalsDiv.classList.add("intervales-grid");
+  intervalsDiv.classList.add("toggle-btns");
+  // intervalsDiv.classList.add("response-button");
+  Object.keys(INTERVALS).forEach((interval) => {
+    const btn = document.createElement("button");
+    btn.innerText = interval;
+    if (INTERVALS_SETTINGS.includes(interval)) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+    btn.classList.add("active");
+    intervalsDiv.appendChild(btn);
+    // INTERVALS_SETTINGS.push(interval);
+    btn.addEventListener("click", () => {
+      const intervalsResponseDiv = document.querySelector(
+        "#intervales-responses",
+      );
+      const value = btn.textContent;
+      const index = INTERVALS_SETTINGS.indexOf(value);
+      if (index === -1) {
+        INTERVALS_SETTINGS.push(value);
+      } else {
+        INTERVALS_SETTINGS.splice(index, 1);
+      }
+      INTERVALS_SETTINGS.sort(
+        (a, b) =>
+          Object.keys(INTERVALS).indexOf(a) - Object.keys(INTERVALS).indexOf(b),
+      );
+      fillIntervalsGrid(intervalsResponseDiv);
+    });
+  });
+
+  const notesDiv = document.createElement("div");
+  notesDiv.classList.add("notes-grid");
+  notesDiv.classList.add("toggle-btns");
+  NOTES_NAMES.forEach((note) => {
+    const btn = document.createElement("button");
+    btn.innerText = note;
+    btn.classList.add("active");
+    notesDiv.appendChild(btn);
+  });
+
+  const alterationsDiv = document.createElement("div");
+  alterationsDiv.classList.add("alterations-grid");
+  alterationsDiv.classList.add("switch-unselect-btns");
+  ALTERATIONS_NAMES.slice(1, -1).forEach((note) => {
+    const btn = document.createElement("button");
+    btn.innerText = note;
+    btn.classList.add("active");
+    alterationsDiv.appendChild(btn);
+  });
+
+  settingsDiv.appendChild(intervalsDiv);
+  // settingsDiv.appendChild(notesDiv);
+  // settingsDiv.appendChild(alterationsDiv);
+  return settingsDiv;
+}
+
+function fillIntervalsGrid(intervalsDiv) {
+  // const intervalsDiv = document.querySelector(".intervales-grid");
+  intervalsDiv.innerHTML = "";
+  INTERVALS_SETTINGS.forEach((interval) => {
+    const btn = document.createElement("button");
+    btn.innerText = interval;
+    intervalsDiv.appendChild(btn);
+  });
 }

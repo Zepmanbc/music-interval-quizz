@@ -18,8 +18,9 @@ label {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
+
 .actions {
   display: flex;
   gap: 1rem;
@@ -30,6 +31,15 @@ label {
   font-size: 1.1rem;
   background: #2196f3;
   color: #fff;
+}
+
+.actions button:first-child {
+  width: 3rem;
+  flex: 0 0 3rem;
+}
+
+.actions button:last-child {
+  flex: 1;
 }
 
 .section {
@@ -132,6 +142,38 @@ button.active {
   background: #4caf50;
   color: #000;
   font-weight: bold;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  color: black;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: min(90%, 500px);
+  max-height: 90vh;
+  overflow-y: auto;
+  margin: 1rem;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+  float: right;
+  font-size: 2rem;
+  background: none;
+  border: none;
 }
 
 /* ANIMATION */
