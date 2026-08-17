@@ -43,7 +43,7 @@ const INTERVAL_NOTE_NAME = {
 
 let INTERVALS_SETTINGS = Object.keys(INTERVALS);
 
-export function setupIntervalQuizz(options) {
+export function setupIntervalsQuizz(options) {
   let settings = getIntervalSettings();
   let startingNote = getRandomNote();
   let interval = getRandomInterval();

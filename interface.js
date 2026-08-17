@@ -1,4 +1,6 @@
-import { INTERVALS_OPTIONS, setupIntervalQuizz } from "./interval.js";
+import { CHORDS_OPTIONS, setupChordsQuizz } from "./chords.js";
+import { INTERVALS_OPTIONS, setupIntervalsQuizz } from "./interval.js";
+import { MODES_OPTIONS, setupModesQuizz } from "./modes.js";
 import { playNotes, playChord } from "./piano.js";
 
 const exerciseType = document.querySelector("#exercise-type");
@@ -18,9 +20,6 @@ let cachedNotesToPlayFunction;
 let exerciceCheckResponse;
 let correctScore = 0;
 let wrongScore = 0;
-
-const CHORDS_OPTIONS = ["3 sons", "4 sons"];
-const MODES_OPTIONS = ["Ascendant", "Descendant"];
 
 // Buttons Behavior
 function btnGroupSetupSwitch(group, onClick = null) {
@@ -151,7 +150,15 @@ function getExerciseConfig() {
   console.log(
     `exerciseType: ${exerciseType} - exerciseOptions: ${exerciseOptions.join(", ")}`,
   );
-  return { exerciseType, exerciseOptions };
+  if (exerciseType == "interval") {
+    return setupIntervalsQuizz(exerciseOptions);
+  }
+  if (exerciseType == "chords") {
+    return setupChordsQuizz(exerciseOptions);
+  }
+  if (exerciseType == "mode") {
+    return setupModesQuizz(exerciseOptions);
+  }
 }
 
 export function renderOptions(type) {
@@ -181,21 +188,19 @@ function setupOptionsBtns(type) {
 
 function runExercise() {
   reset();
-  const config = getExerciseConfig();
-  if (config.exerciseType == "interval") {
-    displayZone.classList.remove("hidden");
-    let exercice = setupIntervalQuizz(config["exerciseOptions"]);
-    cachedNotesToPlayFunction = () => {
-      playNotes(exercice.notesToPlay);
-    };
-    playMusicBtn.addEventListener("click", cachedNotesToPlayFunction);
-    startingNoteText.textContent = exercice.startingNote;
-    responseArea.appendChild(exercice.interface());
-    exerciceCheckResponse = exercice.checkResponse;
-    settingsArea.appendChild(exercice.settings);
+  const setupExercice = getExerciseConfig();
 
-    setupButtonsBehevior();
-  }
+  displayZone.classList.remove("hidden");
+  cachedNotesToPlayFunction = () => {
+    playNotes(setupExercice.notesToPlay);
+  };
+  playMusicBtn.addEventListener("click", cachedNotesToPlayFunction);
+  startingNoteText.textContent = setupExercice.startingNote;
+  responseArea.appendChild(setupExercice.interface());
+  exerciceCheckResponse = setupExercice.checkResponse;
+  settingsArea.appendChild(setupExercice.settings);
+
+  setupButtonsBehevior();
 }
 
 function reset() {
